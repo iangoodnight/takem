@@ -36,7 +36,6 @@ const takem = (function main() {
     const _re = /products\/([^.]*\.\w{3})\?v=\d*$/;
 
     this.link = link;
-    link = 'https://' + link;
     let fileName;
 
     if (link.match(_re) !== null) {
@@ -72,7 +71,7 @@ const takem = (function main() {
   };
 
   function pictures(options) {
-    const { files = [], outDir = '.', data = '', verbose = false } = options;
+    const { files = [], outDir = '.', data = [], verbose = false } = options;
 
     console.log(`
       files: ${files}
@@ -80,16 +79,16 @@ const takem = (function main() {
       data: ${data}
       verbose: ${verbose}`);
 
-    const fileContents = fs.readFileSync(
-      path.resolve(__dirname, files[0]),
-      'utf8'
-    );
-
-    const sourceUrls = fileContents
-      .split(/\n/)
-      .filter((line) => line.length > 3);
-
-    const _each = sourceUrls.map((url) => {
+//    const fileContents = fs.readFileSync(
+//      path.resolve(__dirname, files[0]),
+//      'utf8'
+//    );
+//
+//    const sourceUrls = fileContents
+//      .split(/\n/)
+//      .filter((line) => line.length > 3);
+//
+    const _each = data.map((url) => {
       return new Image(url);
     });
 

@@ -10,22 +10,22 @@ const { argv, cwd, stdin } = process;
 
 const { isTTY } = stdin;
 
+const init = require('../lib/handleData');
+
 const args = argv.slice(2);
 
 const options = {
   files: [],
   outDir: '',
-  data: '',
-  verbose: false,
+  data: [],
+  log: 'NONE',
 };
 
 if (isTTY && args.length === 0) console.log('Usage: ');
 
 if (args.length !== 0) handleShellArguments();
 
-if (isTTY) takem.pictures(options);
-
-if (!isTTY) handlePipedContent();
+init.read(options.files, options).then(data => console.log(data));
 
 function handleShellArguments() {
   while (args.length) {
@@ -53,7 +53,10 @@ function parseArg(arg) {
     for (const flag of arg) {
       switch (flag) {
         case 'v':
-          options.verbose = true;
+          options.log = 'VERBOSE';
+          break;
+        case 'd':
+          options.log = 'DEBUG';
           break;
         default:
           break;
@@ -63,7 +66,10 @@ function parseArg(arg) {
   if (arg[0] === '-' && arg[1] === '-') {
     switch (arg) {
       case '--verbose':
-        options.verbose = true;
+        options.log = 'VERBOSE';
+        break;
+      case '--debug':
+        options.log = 'DEBUG';
         break;
       default:
         break;
