@@ -6,9 +6,7 @@ const { takem } = require('../index.js');
 
 const fs = require('fs');
 
-const path = require('path');
-
-const { argv, cwd, stdin, stdout } = process;
+const { argv, cwd, stdin } = process;
 
 const { isTTY } = stdin;
 
@@ -52,10 +50,11 @@ function parseArg(arg) {
   }
 
   if (arg[0] === '-' && arg[1] !== '-') {
-    for (flag of arg) {
+    for (const flag of arg) {
       switch (flag) {
         case 'v':
           options.verbose = true;
+          break;
         default:
           break;
       }
@@ -65,6 +64,7 @@ function parseArg(arg) {
     switch (arg) {
       case '--verbose':
         options.verbose = true;
+        break;
       default:
         break;
     }

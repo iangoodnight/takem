@@ -74,6 +74,12 @@ const takem = (function main() {
   function pictures(options) {
     const { files = [], outDir = '.', data = '', verbose = false } = options;
 
+    console.log(`
+      files: ${files}
+      outDir: ${outDir}
+      data: ${data}
+      verbose: ${verbose}`);
+
     const fileContents = fs.readFileSync(
       path.resolve(__dirname, files[0]),
       'utf8'
@@ -97,7 +103,7 @@ const takem = (function main() {
       });
   }
 
-  return { pictures };
+  return { pictures, check };
 })();
 
 module.exports = {
