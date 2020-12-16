@@ -5,4 +5,5 @@ node_modules
 *.txt
 images
 DS_Store
+.DS_Store
 sketches.js
